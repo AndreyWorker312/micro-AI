@@ -1,0 +1,29 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    environment:
+      DJANGO_DEBUG: "0"
+      DJANGO_ALLOWED_HOSTS: "*"
+      DJANGO_SECRET_KEY: "change-me-in-production"
+      DATA_DIR: "/data"
+      WHISPER_MODEL: "base"
+      HF_HOME: "/models/hf"
+    volumes:
+      - backend_data:/data
+      - whisper_models:/models
+    expose:
+      - "8000"
+
+  frontend:
+    build:
+      context: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+
+volumes:
+  backend_data:
+  whisper_models:
+

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ASR Demo (Mic → Whisper → Text)</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="header">
+        <h1>Микрофон → Сервер → Текст</h1>
+        <p class="muted">
+          Запишите фрагмент речи, отправьте на сервер и получите транскрипт. Затем отредактируйте и подтвердите.
+        </p>
+      </header>
+
+      <section class="card">
+        <div class="row">
+          <button id="btnStart" class="btn">Начать запись</button>
+          <button id="btnStop" class="btn btn-secondary" disabled>Остановить</button>
+          <button id="btnTranscribe" class="btn btn-primary" disabled>Транскрибировать</button>
+          <div class="pill" id="status">Готово</div>
+        </div>
+        <div class="row">
+          <div class="meter">
+            <div class="meter__bar" id="meterBar"></div>
+          </div>
+          <div class="muted" id="timer">00:00</div>
+        </div>
+        <div class="row">
+          <audio id="player" controls></audio>
+        </div>
+        <div class="muted small">
+          Подсказка: лучше говорить чётко и ближе к микрофону. Файл отправляется в формате WebM/Opus (как даст браузер).
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Результат</h2>
+        <div class="row">
+          <div class="muted small">Язык: <span id="lang">—</span></div>
+          <div class="muted small">ID: <span id="tid">—</span></div>
+        </div>
+        <textarea id="text" rows="8" placeholder="Здесь появится распознанный текст..." disabled></textarea>
+        <div class="row">
+          <button id="btnConfirm" class="btn" disabled>Подтвердить (проверка)</button>
+          <div class="muted small" id="warnings"></div>
+        </div>
+      </section>
+
+      <footer class="footer muted small">
+        Backend: Django + faster-whisper (CPU). Frontend: HTML + JS + nginx.
+      </footer>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
+
