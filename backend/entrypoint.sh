@@ -12,4 +12,3 @@ exec gunicorn server.wsgi:application \
   --access-logfile - \
   --error-logfile - \
   --timeout 300
-
